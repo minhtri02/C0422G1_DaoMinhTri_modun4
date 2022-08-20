@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -14,16 +13,17 @@ public class ProductRepository implements IProductRepository {
 
     @Override
     public List<Product> findAll(String name) {
+        TypedQuery typedQuery;
         if (name == null) {
-            TypedQuery typedQuery = BaseRepository.entityManager.createQuery("select p from Product p", Product.class);
-            return typedQuery.getResultList();
+            typedQuery = BaseRepository.entityManager.createQuery("select p from Product p",
+                    Product.class);
         } else {
-            TypedQuery typedQuery = BaseRepository.entityManager.createQuery("select p from Product p where p.name like concat('%',:name,'%') ", Product.class);
+            typedQuery = BaseRepository.entityManager.createQuery("select p from " +
+                    "Product p where p.name like concat('%',:name,'%') ", Product.class);
             typedQuery.setParameter("name", name);
-            return typedQuery.getResultList();
         }
+        return typedQuery.getResultList();
     }
-
 
     @Override
     public Product findById(int id) {
