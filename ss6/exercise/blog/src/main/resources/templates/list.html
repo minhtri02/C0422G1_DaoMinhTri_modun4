@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/common::header}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<a href="/createBlog">Create new blog</a>
+<h1>List Blog</h1>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<table border="1" class="table table-primary">
+    <tr class="table-dark">
+        <th>#</th>
+        <th>ID</th>
+        <th>Blog Name</th>
+        <th>Blog content</th>
+        <th>delete</th>
+        <th>update</th>
+        <th>view</th>
+    </tr>
+    <tr th:each="blog,status : ${listBlog}">
+        <td th:text="${status.count}"></td>
+        <td th:text="${blog.id}"></td>
+        <td th:text="${blog.name}"></td>
+        <td th:text="${blog.content}"></td>
+        <td><button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" th:onclick="|deleteBlog(${blog.id})|" >delete</button></td>
+        <td><a class="btn btn-success" th:href="@{/updateBlog/{id}(id=${blog.id})}">update</a></td>
+        <td><a class="btn btn-success" th:href="@{/viewBlog/{id}(id=${blog.id})}">view</a></td>
+    </tr>
+</table>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/deleteBlog" method="post">
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" name="id" id="idBlog">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function deleteBlog(id) {
+        document.getElementById("idBlog").value=id;
+    }
+</script>
+<script src="/js/bootstrap.min.js"></script>
+</html>
