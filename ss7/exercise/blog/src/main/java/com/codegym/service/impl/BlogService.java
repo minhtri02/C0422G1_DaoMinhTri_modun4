@@ -4,6 +4,8 @@ import com.codegym.model.Blog;
 import com.codegym.repository.IBlogRepository;
 import com.codegym.service.IBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +17,8 @@ public class BlogService implements IBlogService {
     private IBlogRepository iBlogRepository;
 
     @Override
-    public List<Blog> findAll() {
-        return iBlogRepository.findAll();
+    public Page<Blog> findAll(String name,String category_name,Pageable pageable) {
+        return iBlogRepository.findAllByNameContainingAndCategoryName(name,category_name,pageable);
     }
 
     @Override
@@ -31,7 +33,7 @@ public class BlogService implements IBlogService {
 
     @Override
     public Blog findById(Integer id) {
-        return this.iBlogRepository.findById(id).orElse(null);
+        return this.iBlogRepository.findById(id).orElse(new Blog());
     }
 
     @Override
