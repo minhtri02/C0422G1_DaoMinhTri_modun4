@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        h3{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<h1>form register</h1>
+<form action="/createUser" th:object="${userDto}" method="post">
+    <div>
+        <label>first name:</label>
+        <input type="text" th:field="*{firstName}">
+    </div>
+    <h3 th:errors="*{firstName}"></h3>
+    <div>
+        <label>last name:</label>
+        <input type="text" th:field="*{lastName}">
+    </div>
+    <h3 th:errors="*{lastName}"></h3>
+    <div>
+        <label>phone number</label>
+        <input type="text" th:field="*{phoneNumber}">
+    </div>
+    <h3 th:errors="*{phoneNumber}"></h3>
+    <div>
+        <label>age :</label>
+        <input type="date" th:field="*{age}">
+    </div>
+    <h3 th:errors="*{age}"></h3>
+    <div>
+        <label>Email:</label>
+        <input type="text" th:field="*{email}">
+    </div>
+    <h3 th:errors="*{email}"></h3>
+    <div>
+        <button type="submit">Gủi</button>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        h4{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<h1>Edit Music</h1>
+<h3 style="color: green" th:if="${msg}" th:text="${msg}"></h3>
+<form action="/editMusic" method="post" th:object="${musicDto}">
+    <input type="text" th:field="*{id}" readonly>
+    <div>
+        <label>Name Music:</label>
+        <input type="text" th:field="*{nameMusic}">
+    </div>
+    <h4 th:errors="*{nameMusic}"></h4>
+    <div>
+        <label>singer:</label>
+        <input type="text" th:field="*{singer}">
+    </div>
+    <h4 th:errors="*{singer}"></h4>
+    <div>
+        <label>Kind Music:</label>
+        <input type="text" th:field="*{kind}">
+    </div>
+    <h4 th:errors="*{kind}"></h4>
+    <div>
+        <button type="submit">save</button>
+    </div>
+</form>
+</body>
+</html>

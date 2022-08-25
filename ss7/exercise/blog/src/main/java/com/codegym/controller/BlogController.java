@@ -24,10 +24,10 @@ public class BlogController {
 
     @GetMapping("/home")
     public ModelAndView goListBlog(@PageableDefault(size = 2) Pageable pageable,
-                                   @RequestParam Optional<String> category_name,
+                                   @RequestParam Optional<String> categoryName,
                                    @RequestParam Optional<String> nameBlog) {
         String keyWork = nameBlog.orElse("");
-        String categorys = category_name.orElse("");
+        String categorys = categoryName.orElse("");
         ModelAndView modelAndView = new ModelAndView("/blog/list");
         modelAndView.addObject("listBlog", this.iBlogService.findAll(keyWork, categorys, pageable));
         modelAndView.addObject("categoryList", this.iCategoryService.findAll());
