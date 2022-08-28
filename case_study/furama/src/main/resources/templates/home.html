@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head >
+    <meta charset="UTF-8">
+    <title>Title</title>
+<th:block th:include="~{/include/commom::cssbackground}">
+
+</th:block>
+<!--    <link rel="stylesheet" href="/css/bootstrap.min.css">-->
+</head>
+<body>
+<th:block th:replace="~{/include/commom::header}"></th:block>
+<th:block th:replace="~{/include/commom::navbar}"></th:block>
+<nav class="row">
+    <nav class="col-lg-12 d-flex justify-content-center">
+        <video autoplay loop muted width="70%">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-bright-orange-sunset-on-beach-2168-large.mp4">
+        </video>
+    </nav>
+</nav>
+<nav class="row mt-3 mb-3">
+    <nav class="col-lg-3">
+        <img height="auto" width="90%"
+             src="https://furamavietnam.com/wp-content/uploads/2018/11/Vietnam_Danang_Furama_Ocean-Studio-Suite.jpg"
+             alt="">
+    </nav>
+    <nav class="col-lg-3">
+        <img height="auto" width="90%"
+             src="https://furamavietnam.com/wp-content/uploads/2018/11/Vietnam_Danang_Furama_Resort_Exterior-Lagoon-Pool.jpg"
+             alt="">
+    </nav>
+    <nav class="col-lg-3">
+        <img height="auto" width="90%"
+             src="https://furamavietnam.com/wp-content/uploads/2018/11/Vietnam_Danang_Furama_Resort_Exterior_Courtyard.jpg"
+             alt="">
+    </nav>
+    <nav class="col-lg-3">
+        <img height="auto" width="90%"
+             src="https://furamavietnam.com/wp-content/uploads/2018/11/Vietnam_Danang_Furama_Ocean-Deluxe-double-bed.jpg"
+             alt="">
+    </nav>
+</nav>
+<nav class="row">
+    <nav class="col-lg-1"></nav>
+    <nav class="col-lg-10">
+        <nav class="row mb-4">
+            <nav class="col-lg-6">
+                <img width="90%" src="https://furamavietnam.com/wp-content/uploads/2018/07/CULIRARY.jpg" alt="">
+            </nav>
+            <nav class="col-lg-6 d-flex justify-content-center">
+                <p>CULINARY <br>
+                    The resort’s culinary experience features a mixture of the authentic and locally inspired Vietnamese, Asian, Italian and other European cuisines plus the best imported steaks. The resort presents guests with varied gastronomic venues – the hip and breezy bar overlooking the beach, the exclusive Lagoon pool surrounded by a tropical garden, the true Italian flare offered at the Don Cipriani’s, the refined Asian touch at Café Indochine or the authentic central Vietnam cuisine at the Danaksara.</p>
+            </nav>
+        </nav>
+        <nav class="row mb-4">
+            <nav class="col-lg-6 d-flex justify-content-center">
+                <p>MEETING & EVENT <br>
+                    A well-appointed International Convention Palace with ballrooms can accommodate up to 1,000 people in style, with another ten function rooms for 50 to 300 people each. A variety of cultural-themed parties on the beach or around the lagoon, in the ballrooms or outside the resort, with the surprising arrivals of VIPs from Helicopter landing on the resort’s own Helipad…</p>
+            </nav>
+            <nav class="col-lg-6">
+                <img width="90%" src="https://furamavietnam.com/wp-content/uploads/2018/10/02.-ICP-ICP_Furama_Danang_-Ball-Room-4.jpg" alt="">
+            </nav>
+        </nav>
+        <nav class="row mb-4">
+            <nav class="col-lg-6">
+                <img width="90%" src="https://furamavietnam.com/wp-content/uploads/2018/07/RECREATION.jpg" alt="">
+            </nav>
+            <nav class="col-lg-6 d-flex justify-content-center">
+                <p>RECREATION <br>
+                    A full range of Water Sports will keep you busy. Stop by the Water Sport House where our experienced staff are waiting to assist or train you in the use of any of our equipment.</p>
+            </nav>
+        </nav>
+    </nav>
+    <nav class="col-lg-1"></nav>
+</nav>
+<th:block th:replace="~{/include/commom::footer}"></th:block>
+</body>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/jquery/jquery-3.5.1.min.js"></script>
+</html>
