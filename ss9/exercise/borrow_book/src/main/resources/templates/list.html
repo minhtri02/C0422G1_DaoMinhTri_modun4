@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="col-md-6" style="margin: auto">
+    <h1 class="text-center text-danger">Book List</h1>
+    <a href="/giveBack" class="btn-dark btn">Give Back</a>
+    <form action="/list">
+        <div class="input-group m-3">
+            <input type="text" class="form-control" aria-describedby="button-addon2" name="name">
+            <button class="btn btn-secondary" type="submit" id="button-addon2">Search</button>
+        </div>
+    </form>
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Book Name</th>
+            <th>Amount</th>
+            <th>Info</th>
+        </tr>
+        <tr th:each="book,status : ${bookPage}">
+            <td th:text="${status.count}"></td>
+            <td th:text="${book.name}"></td>
+            <td th:text="${book.amount}"></td>
+            <td>
+                <a class="btn-success btn" th:href="@{/info/{id}(id=${book.id})}">info</a>
+            </td>
+        </tr>
+    </table>
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="pagination justify-content-end">
+                <li class="page-item">
+                    <a class="page-link"
+                       th:href="@{/list(page=${bookPage.number - 1}, name = ${keyName})}"
+                       th:if="${bookPage.hasPrevious()}">
+                        Previous
+                    </a>
+                </li>
+                <li class="page-item active" aria-current="page">
+                        <span class="page-link">
+                            <th:block th:text="${bookPage.number + 1}"></th:block>
+                            /
+                            <th:block th:text="${bookPage.totalPages}"></th:block>
+                        </span>
+
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       th:href="@{/list(page=${bookPage.number + 1}, name = ${keyName})}"
+                       th:if="${bookPage.hasNext()}">
+                        Next
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
