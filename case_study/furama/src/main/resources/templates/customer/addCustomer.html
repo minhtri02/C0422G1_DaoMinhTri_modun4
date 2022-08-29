@@ -1,10 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="~{/include/commom::cssbackground}"></th:block>
 </head>
 <body>
-$END$
+<th:block th:replace="~{/include/commom::header}"></th:block>
+<th:block th:replace="~{/include/commom::navbar}"></th:block>
+<div>
+    <nav class="row mt-4">
+        <nav class="col-lg-2"></nav>
+        <nav class="col-lg-8 d-flex justify-content-center">
+            <form class="justify-content-center d-flex" action="/customer/add" method="post"
+                  style="border: 1px solid #A9A9A9; border-radius: 20px; width: 100%"
+                    th:object="${customer}">
+                <fieldset>
+                    <legend>Add Customer</legend>
+                    <table style="width: 100%" class="table">
+
+                        <tr>
+                            <th scope="col">
+                                <label>Chọn loại khách</label>
+                            </th>
+                            <th scope="col">
+                                <select th:field="*{guestType}" class="table-row" required>
+                                    <option th:each="gusteType:${listGuestType}" th:text="${gusteType.guestTypeName}"
+                                            th:value="${gusteType.idGuestType}"></option>
+                                </select>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col">
+                                <label>Tên khách hàng</label>
+                            </th>
+                            <th scope="col">
+                                <input type="text" th:field="*{name}" required>
+<!--                                <p style="color: red">${name}</p>-->
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col">
+                                <label>Ngày sinh</label>
+                            </th>
+                            <th scope="col">
+                                <input type="date" th:field="*{dayOfBirth}">
+<!--                                <p style="color: red">${dayOfBirt}</p>-->
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th scope="col">
+                                <label>Giới tính(0 or 1)</label>
+                            </th>
+                            <th scope="col">
+                                <input type="text" th:field="*{gender}">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col">
+                                <label>Số CMND(9 number)</label>
+                            </th>
+                            <th scope="col">
+                                <input type="text" th:field="*{personalCode}">
+<!--                                <p style="color: red">${idCard}</p>-->
+                            </th>
+                        </tr>
+                        <div>
+
+                        </div>
+                        <tr>
+                            <th scope="col">
+                                <label>Số điện thoại</label>
+                            </th>
+                            <th scope="col">
+                                <input type="text" th:field="*{phoneNumber}">
+<!--                                <p style="color: red">${phone}</p>-->
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col">
+                                <label>Email</label>
+                            </th>
+                            <th scope="col">
+                                <input type="text" th:field="*{email}">
+<!--                                <p style="color: red">${email}</p>-->
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col">
+                                <label>Địa chỉ</label>
+                            </th>
+                            <th scope="col">
+                                <input type="text" th:field="*{address}">
+                            </th>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <td colspan="2">${error}</td>-->
+<!--                        </tr>-->
+                        <tr>
+                            <th></th>
+                            <th><input class="btn btn-primary" type="submit" value="SAVE"></th>
+                        </tr>
+                    </table>
+                </fieldset>
+            </form>
+        </nav>
+        <nav class="col-lg-2"></nav>
+    </nav>
+</div>
+<th:block th:replace="~{/include/commom::footer}"></th:block>
 </body>
 </html>
