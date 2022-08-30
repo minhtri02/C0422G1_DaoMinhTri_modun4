@@ -35,11 +35,14 @@ public class ProductController {
     }
 
     @GetMapping("/add")
-    public String addToCart(@RequestParam("id") Long id, @SessionAttribute("cart")  Map<Product, Integer> cart) {
+    public String addToCart(@RequestParam("id") Long id,@RequestParam("expression") String expression, @SessionAttribute("cart")  Map<Product, Integer> cart,Model model) {
         Product product = this.iProductService.findById(id);
-        this.iCartService.addProduct(cart, product);
-        return "redirect:/shop";
+        iCartService.addProduct(cart,product,expression);
+        model.addAttribute("total", iCartService.getTotal(cart));
+        model.addAttribute("cart", cart);
+        return "redirect:/cart";
     }
+
 
     @GetMapping("/detail")
     public String goDetail(@RequestParam Long id, Model model) {
@@ -57,5 +60,11 @@ public class ProductController {
         model.addAttribute("cart",cart);
         model.addAttribute("total",total);
         return "cart";
+    }
+
+    @GetMapping("/pay")
+    public String payProduct(@SessionAttribute("cart") Map<Product, Integer> cart){
+        cart.clear();
+        return "pay";
     }
 }

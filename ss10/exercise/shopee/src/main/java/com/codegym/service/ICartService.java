@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface ICartService {
 
-    void addProduct(Map<Product,Integer> cart, Product product);
+    void addProduct(Map<Product,Integer> cart, Product product, String expression);
 
     double getTotal(Map<Product,Integer> cart);
 }

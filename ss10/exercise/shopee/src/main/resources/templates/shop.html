@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Shop</title>
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
-    <script src="../static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/bootstrap.min.js"></script>
+    <style>
+        body{
+            background-image: linear-gradient(#adb5bd,yellow,blue);
+        }
+    </style>
 </head>
 <body>
 <p>
@@ -12,17 +17,15 @@
 </p>
 <div class="container-fluid">
     <div class="row ">
-        <div class="col-md-12 d-flex justify-content-center">
-            <th:block th:each="product:${products}">
-                <div class="col-md-3">
-                    <div><img class="align-content-center" th:src="@{${product.linkImg}}" alt=""></div>
-                    <div>
-                        <h2 th:text="${product.name}"></h2>
-                        <h3 th:text="${product.price}"></h3>
-                        <a th:href="@{/detail(id= ${product.id})}">Show Detail</a>
-                    </div>
+        <div class="col " th:each="product:${products}">
+            <div class="card pt-4" style="width: 18rem;">
+                <img th:src="@{${product.linkImg}}" class="card-img-top" alt="...">
+                <div class="card-body text-center">
+                    <h5 class="card-title" th:text="${product.name}"></h5>
+                    <p class="card-text" th:text="${product.price}"></p>
+                    <a th:href="@{/detail(id= ${product.id})}" class="btn btn-primary">Show Detail</a>
                 </div>
-            </th:block>
+            </div>
         </div>
     </div>
 </div>

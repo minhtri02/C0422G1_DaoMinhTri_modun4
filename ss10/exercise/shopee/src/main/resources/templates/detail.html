@@ -3,14 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Detail</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
 <h1>PRODUCT DETAIL</h1>
-<a href="/shopping-cart">Your cart</a>
-<p th:text="${product.name}"></p>
-<p th:text="${product.price}"></p>
-<p th:text="${product.description}"></p>
-<img th:src="@{${product.linkImg}}" alt="">
-<a th:href="@{/add(id= ${product.id})}">Giỏ hàng</a>
+<a class="btn btn-success" href="/cart">Your cart</a>
+<div class="card" style="width: 18rem;">
+  <img th:src="@{${product.linkImg}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title" th:text="${product.name}">Card title</h5>
+    <p class="card-text" th:text="${product.price}"></p>
+    <a th:href="@{/add(id= ${product.id},expression ='')}" class="btn btn-primary">Giỏ Hàng</a>
+  </div>
+</div>
 </body>
 </html>

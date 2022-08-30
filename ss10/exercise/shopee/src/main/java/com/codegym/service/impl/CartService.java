@@ -12,12 +12,16 @@ public class CartService implements ICartService {
     private Map<Product,Integer> products = new HashMap<>();
 
     @Override
-    public void addProduct(Map<Product, Integer> cart, Product product) {
-        if (cart.containsKey(product)){
-            cart.put(product,cart.get(product) + 1);
-        }else {
-            cart.put(product,1);
-        }
+    public void addProduct(Map<Product, Integer> cart, Product product, String expression) {
+        if (cart.containsKey(product)) {
+            if (expression.equals("+"))
+                cart.put(product, cart.get(product) + 1);
+            else {
+                if(cart.get(product)>0)
+                    cart.put(product, cart.get(product) - 1);
+                else cart.remove(product);
+            }
+        } else cart.put(product, 1);
     }
 
     @Override

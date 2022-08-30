@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
 <p>
@@ -10,8 +11,8 @@
 </p>
 <h1>Your Cart</h1>
 <form th:action="@{/shop}" th:object="${cart}" method="post">
-    <table border="1">
-        <tr>
+    <table border="1" class="table table-primary">
+        <tr class="table-dark">
             <th>Item</th>
             <th>Quantity</th>
             <th>Price</th>
@@ -19,7 +20,9 @@
         <tr th:each="product: ${cart}">
             <td th:text="${product.getKey().name}"></td>
             <td>
+                <a th:href="@{/add(id= ${product.getKey().id},expression ='-')}" th:text="${'-'}"></a>
                 <span th:text="${product.getValue()}"></span>
+                <a th:href="@{/add(id= ${product.getKey().id},expression ='+')}" th:text="${'+'}"></a>
             </td>
             <td th:text="${product.getKey().price}"></td>
         </tr>
@@ -28,10 +31,10 @@
             <td></td>
             <td th:text="${total}"></td>
         </tr>
-        <tr>
-
-        </tr>
     </table>
+    <div>
+        <a class="btn btn-primary" href="/pay">Pay</a>
+    </div>
 </form>
 </body>
 </html>
