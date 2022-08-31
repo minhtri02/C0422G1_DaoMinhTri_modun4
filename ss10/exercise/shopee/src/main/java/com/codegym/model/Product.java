@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -21,15 +22,17 @@ public class Product {
     private Long id;
     private String name;
     @Column(columnDefinition = "text")
-    private String linkImg;
     private double price;
     private String description;
 
-    public Product(String name, String linkImg, double price, String description) {
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    private List<ProductImg> productImgList;
+
+    public Product(String name, double price, String description, List<ProductImg> productImgList) {
         this.name = name;
-        this.linkImg = linkImg;
         this.price = price;
         this.description = description;
+        this.productImgList = productImgList;
     }
 
     @Override

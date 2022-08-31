@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common::header">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>View Blog</h1>
+<p>
+    <a href="/home">Blog list</a>
+</p>
+<div class="row">
+    <div class="col-md-12">
+        <table border="1" class="table table-primary">
+            <tr class="table-dark">
+                <th>#</th>
+                <th>ID</th>
+                <th>Category Name</th>
+                <th>delete</th>
+                <th>update</th>
+                <th>view</th>
+            </tr>
+            <tr th:each="category,status : ${categoryList}">
+                <td th:text="${status.count}"></td>
+                <td th:text="${category.id}"></td>
+                <td th:text="${category.name}"></td>
+                <td>
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            th:attr="onclick=|deleteCategory('${category.id}','${category.name}')|">delete
+                    </button>
+                </td>
+                <td><a class="btn btn-success" th:href="@{/category/updateCategory/{id}(id=${category.id})}">update</a>
+                </td>
+                <td><a class="btn btn-success" th:href="@{/category/viewCategory/{id}(id=${category.id})}">view</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/category/deleteCategory" method="post">
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input readonly type="text" name="id" id="idCategory">
+                    <label id="nameCategory"></label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function deleteCategory(id, name) {
+        document.getElementById("idCategory").value = id;
+        document.getElementById("nameCategory").innerText = name;
+    }
+</script>
+</html>

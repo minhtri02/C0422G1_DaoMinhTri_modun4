@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Controller
 @SessionAttributes("cart")

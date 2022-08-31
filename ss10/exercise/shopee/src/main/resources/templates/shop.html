@@ -6,20 +6,43 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <script src="/js/bootstrap.min.js"></script>
     <style>
-        body{
-            background-image: linear-gradient(#adb5bd,yellow,blue);
+        body {
+            background-image: linear-gradient(#adb5bd, yellow, blue);
         }
     </style>
 </head>
 <body>
 <p>
-    <a href="/cart">Your cart</a>
+    <a class="btn btn-primary" href="/cart">Your cart</a>
 </p>
 <div class="container-fluid">
     <div class="row ">
-        <div class="col " th:each="product:${products}">
-            <div class="card pt-4" style="width: 18rem;">
-                <img th:src="@{${product.linkImg}}" class="card-img-top" alt="...">
+        <div class="col mb-4" th:each="product, stt:${products}">
+            <div class="card" style="width: 18rem;">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <th:block th:each="imgList, stt : ${product.productImgList}">
+                            <div class="carousel-item active" th:if="${stt.count==1}">
+                                <img th:src="${imgList.link}" class="d-block w-100" height="200" alt="...">
+                            </div>
+                            <div class="carousel-item" th:if="${stt.count>1}">
+                                <img th:src="${imgList.link}" class="d-block w-100" height="200" alt="...">
+                            </div>
+                        </th:block>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                            data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                            data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+
+                </div>
+
                 <div class="card-body text-center">
                     <h5 class="card-title" th:text="${product.name}"></h5>
                     <p class="card-text" th:text="${product.price}"></p>

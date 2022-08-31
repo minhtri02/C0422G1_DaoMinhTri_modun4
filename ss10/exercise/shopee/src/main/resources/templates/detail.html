@@ -1,20 +1,42 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Detail</title>
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Detail</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body class="text-center">
 <h1>PRODUCT DETAIL</h1>
 <a class="btn btn-success" href="/cart">Your cart</a>
 <div class="card" style="width: 18rem;">
-  <img th:src="@{${product.linkImg}}" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title" th:text="${product.name}">Card title</h5>
-    <p class="card-text" th:text="${product.price}"></p>
-    <a th:href="@{/add(id= ${product.id},expression ='')}" class="btn btn-primary">Giỏ Hàng</a>
-  </div>
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <th:block th:each="imgList, stt : ${product.productImgList}">
+                <div class="carousel-item active" th:if="${stt.count==1}">
+                    <img th:src="${imgList.link}" class="d-block w-100" height="200" alt="...">
+                </div>
+                <div class="carousel-item" th:if="${stt.count>1}">
+                    <img th:src="${imgList.link}" class="d-block w-100" height="200" alt="...">
+                </div>
+            </th:block>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title" th:text="${product.name}">Card title</h5>
+        <p class="card-text" th:text="${product.price}"></p>
+        <a th:href="@{/add(id= ${product.id},expression ='')}" class="btn btn-primary">Giỏ Hàng</a>
+    </div>
 </div>
 </body>
 </html>
