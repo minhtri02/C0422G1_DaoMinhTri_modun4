@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>List Smartphone</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<form id="add-smartphone" >
+    <table>
+        <tr>
+            <td>Producer:</td>
+            <td><input type="text" id="producer" placeholder="producer"></td>
+        </tr>
+        <tr>
+            <td>Model:</td>
+            <td><input type="text" id="model" placeholder="model"></td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td><input type="text" id="price" placeholder="price"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Add"  id="create" ></td>
+        </tr>
+    </table>
+</form>
+<h1>Smartphone List</h1>
+<table id="smartphoneList" class="table table-responsive">
+    <tr>
+        <td>#</td>
+        <td>Producer</td>
+        <td>Model</td>
+        <td>Price</td>
+        <td>Update</td>
+        <td>Delete</td>
+    </tr>
+    <tbody id="bodyTable"></tbody>
+</table>
+<table id="edit" border="1"></table>
+</body>
+<script src="js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+
+    let pageNumber = 0;
+
+    function getSmartphone(pageNumber) {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/smartphones/list?page=" + pageNumber,
+            success: function (smartphones) {
+                let smartphoneList = smartphones.content;
+                console.log(smartphoneList);
+                let htmlStr = '';
+
+                for (let i = 0; i < smartphoneList.length; i++) {
+                    htmlStr += `<tr>
+                          <td>${smartphoneList[i].id}</td>
+                          <td>${smartphoneList[i].producer}</td>
+                          <td>${smartphoneList[i].model}</td>
+                          <td>${smartphoneList[i].price}</td>
+          <td><button class="btn btn-success" onclick="updateFunction(${smartphoneList[i].id})">update</button></td>
+          <td><button class="btn btn-success" onclick="deleteFunction(${smartphoneList[i].id})">Delete</button></td>
+                                  `
+                }
+
+                $("#bodyTable").html(htmlStr);
+            },
+            error: function (resultError) {
+
+            }
+        });
+    }
+
+    $("#create").click(function () {
+        let producer = $('#producer').val();
+        let model = $('#model').val();
+        let price = $('#price').val();
+
+        let newSmartphone = {
+            producer: producer,
+            model: model,
+            price: price
+        };
+        console.log(newSmartphone);
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            data: JSON.stringify(newSmartphone),
+            url: "http://localhost:8080/smartphones/add",
+            success: function (resultSuccess) {
+                alert('register successfully!')
+                getSmartphone(pageNumber)
+            },
+            error: function (resultError) {
+                alert('error');
+            }
+        });
+    });
+
+    function deleteFunction(id) {
+        $.ajax({
+
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "DELETE",
+            dataType: "JSON",
+            url: `http://localhost:8080/smartphones/${id}`,
+            success: function (resultSuccess) {
+                getSmartphone(pageNumber);
+            },
+            error: function (resultError) {
+                alert('error');
+            }
+        });
+    }
+
+    function getPhoneEdit(smartphone) {
+        return  `<tr>
+                    <td><input value='${smartphone.producer}' id='producerEdit'></td>
+                 </tr>
+                 <tr>
+                     <td><input value='${smartphone.model}' id='modelEdit'></td>
+                 </tr>
+                 <tr>
+                     <td><input value='${smartphone.price}' id='priceEdit'></td>
+                 </tr>
+                 <tr>
+                     <td><button class="btn btn-success" onclick="update(${smartphone.id})">Update</button>
+                 </td>
+                 </tr>`;
+    }
+
+    function updateFunction(id) {
+
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "GET",
+            url: `http://localhost:8080/smartphones/edit/${id}`,
+            success: function (smartphoneOptional) {
+                $("#edit").html(getPhoneEdit(smartphoneOptional));
+            }
+        });
+    }
+
+    function update(id) {
+        let producer = $('#producerEdit').val();
+        let model = $('#modelEdit').val();
+        let price = $('#priceEdit').val();
+        let editSmartphone = {
+            id: id,
+            producer: producer,
+            model: model,
+            price: price
+        };
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            url: `http://localhost:8080/smartphones/edit`,
+            data: JSON.stringify(editSmartphone),
+            success: function (resultSuccess) {
+                alert('Edit successfully!')
+                getSmartphone(pageNumber)
+            }
+        });
+    }
+
+    getSmartphone(pageNumber);
+</script>
+</html>
