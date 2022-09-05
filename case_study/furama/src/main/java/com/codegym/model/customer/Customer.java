@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table
+@Table(name = "customer")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,14 +20,15 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCustomer;
     private String name;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dayOfBirth;
-    private Integer gender;
+    @Column(columnDefinition = "date")
+    private String dayOfBirth;
+    private boolean gender;
     private String personalCode;
     private String phoneNumber;
     private String email;
     private String address;
 
     @ManyToOne
+    @JoinColumn(name = "guest_type_id",referencedColumnName = "id")
     private GuestType guestType;
 }

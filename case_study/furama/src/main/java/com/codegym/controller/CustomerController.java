@@ -1,9 +1,8 @@
 package com.codegym.controller;
 
 import com.codegym.model.customer.Customer;
-import com.codegym.service.ICustomerService;
-import com.codegym.service.IGuestTypeCustomerService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.codegym.service.customer.ICustomerService;
+import com.codegym.service.customer.IGuestTypeCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -16,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CustomerController {
 
     @Autowired
-    private ICustomerService iCustomerService;
+    private IGuestTypeCustomerService iGuestTypeCustomerService;
 
     @Autowired
-    private IGuestTypeCustomerService iGuestTypeCustomerService;
+    private ICustomerService iCustomerService;
 
     @GetMapping("/")
     public String showListCustomer(Model model, Pageable pageable){

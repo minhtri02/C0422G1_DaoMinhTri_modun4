@@ -1,4 +1,4 @@
-package com.codegym.model.customer;
+package com.codegym.model.facility;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,17 +9,18 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "guest_type")
 @Getter
 @Setter
+@Table(name = "facility_type")
 @AllArgsConstructor
 @NoArgsConstructor
-public class GuestType {
+public class FacilityType {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
 
-    @OneToMany(mappedBy = "guestType")
-    private List<Customer> customerList;
+    @OneToMany(mappedBy = "facilityTypeId")
+    private List<Facility> facilityList;
 }

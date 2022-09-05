@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<div class="row">
+    <h1>List Blog</h1>
+</div>
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4 d-flex">
+        <div class="input-group">
+            <input id="ipSearch" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <button id="btnSearch" type="button" class="btn btn-outline-primary">search</button>
+        </div>
+    </div>
+    <div class="col-4">
+
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table border="1" class="table table-primary">
+            <thead>
+            <tr class="table-dark">
+                <th>#</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>delete</th>
+                <th>update</th>
+                <th>view</th>
+            </tr>
+            </thead>
+            <tbody id="tableBody">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row justify-content-center d-flex">
+    <button style="width: 200px" class="btn btn-success" id="btnLoad">Tải thêm v</button>
+</div>
+</body>
+<script src="js/jquery-3.6.1.min.js"></script>
+<script>
+    let pageBlog = 0;
+    let nameBlog = '';
+    let size=4;
+    function getPageBlog(pageNumber,nameBlog,size) {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/blogrest/listblog?page="+pageNumber+"&name="+nameBlog+"&size="+size,
+            success: function (resultSuccess) {
+                let blogStr = '';
+                let listBlog = resultSuccess.content;
+                console.log(listBlog);
+
+                for (let i = 0; i < listBlog.length; i++) {
+                    blogStr += `<tr>
+                    <td>${i + 1}</td>
+                    <td>${listBlog[i].id}</td>
+                    <td>${listBlog[i].name}</td>
+                    <td>${listBlog[i].author}</td>
+                    <td>${listBlog[i].category.name}</td>
+                    <td><button class="btn btn-success">Delete</button></td>
+                    <td><button class="btn btn-success">Update</button></td>
+                    <td><button class="btn btn-success">view</button></td>
+                </tr>`;
+                }
+                $("#tableBody").html(blogStr);
+                console.log(blogStr);
+            },
+            error: function (resultError) {
+                alert('error');
+            }
+        });
+    }
+
+    $("#btnSearch").click(function (){
+        nameBlog = $("#ipSearch").val();
+        getPageBlog(pageBlog,nameBlog);
+        }
+    );
+
+    $("#btnLoad").click(function (){
+        size +=4
+        getPageBlog(pageBlog,nameBlog,size);
+    }
+    );
+
+    // first run
+    getPageBlog(pageBlog,nameBlog,size);
+</script>
+</html>
