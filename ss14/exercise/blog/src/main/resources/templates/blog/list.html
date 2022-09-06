@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/common::header}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <a href="/blog/createBlog">Create new blog</a>
+            <a href="/category/showCategory">List Category</a>
+            <h1>List Blog</h1>
+            <th:block th:if="${message}">
+                <p th:text="${message}"></p>
+            </th:block>
+        </div>
+    </div>
+    <form action="/blog/home">
+        <div class="row ">
+            <div class="input-group col-md-12">
+                <input type="search" id="form1" name="nameBlog" class="form-control"/>
+                <select name="category_id">
+                    <option th:each="category: ${categoryList}"
+                            th:text="${category.name}"
+                            th:value="${category.name}" selected
+                    ></option>
+                </select>
+                <button class="btn btn-primary" type="submit">search</button>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-12">
+            <table border="1" class="table table-primary">
+                <tr class="table-dark">
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Blog Name</th>
+                    <th>Blog author</th>
+                    <th>Blog Category</th>
+                    <th>delete</th>
+                    <th>update</th>
+                    <th>view</th>
+                </tr>
+                <tr th:each="blog,status : ${listBlog}">
+                    <td th:text="${status.count}"></td>
+                    <td th:text="${blog.id}"></td>
+                    <td th:text="${blog.name}"></td>
+                    <td th:text="${blog.author}"></td>
+                    <td th:text="${blog.category.name}"></td>
+                    <td>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                th:attr="onclick=|deleteBlog('${blog.id}','${blog.name}')|">delete
+                        </button>
+                    </td>
+                    <td><a class="btn btn-success" th:href="@{/blog/updateBlog/{id}(id=${blog.id})}">update</a></td>
+                    <td><a class="btn btn-success" th:href="@{/blog/viewBlog/{id}(id=${blog.id})}">view</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a th:href="@{/home(page=${listBlog.number - 1})}"
+               th:if="${listBlog.hasPrevious()}">previous</a>
+            <span th:text="${listBlog.number+1}"></span>
+            /
+            <span th:text="${listBlog.totalPages}"></span>
+            <a th:href="@{/home(page=${listBlog.number + 1})}"
+               th:if="${listBlog.hasNext()}">next</a>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/blog/deleteBlog(page=${listBlog.number})}" method="post">
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input readonly type="text" name="id" id="idBlog">
+                    <label id="nameBlog"></label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function deleteBlog(id, name) {
+        document.getElementById("idBlog").value = id;
+        document.getElementById("nameBlog").innerText = name;
+    }
+</script>
+<script src="/js/bootstrap.min.js"></script>
+</html>

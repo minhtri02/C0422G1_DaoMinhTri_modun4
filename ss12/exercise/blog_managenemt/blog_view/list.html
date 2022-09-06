@@ -73,7 +73,7 @@
                     <td><button class="btn btn-success">view</button></td>
                 </tr>`;
                 }
-                $("#tableBody").html(blogStr);
+                $("#tableBody").append(blogStr);
                 console.log(blogStr);
             },
             error: function (resultError) {
