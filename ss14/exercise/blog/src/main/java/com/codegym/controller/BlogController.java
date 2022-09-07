@@ -6,10 +6,13 @@ import com.codegym.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -22,15 +25,21 @@ public class BlogController {
     @Autowired
     private ICategoryService iCategoryService;
 
-    @GetMapping("/home")
+    @GetMapping("/list")
     public ModelAndView goListBlog(@PageableDefault(size = 2) Pageable pageable,
                                    @RequestParam Optional<String> categoryName,
-                                   @RequestParam Optional<String> nameBlog) {
+                                   @RequestParam Optional<String> nameBlog, Principal principal) {
         String keyWork = nameBlog.orElse("");
         String categorys = categoryName.orElse("");
         ModelAndView modelAndView = new ModelAndView("/blog/list");
-        modelAndView.addObject("listBlog", this.iBlogService.findAll(keyWork, categorys, pageable));
+        modelAndView.addObject("listBlog", this.iBlogService.findAll(pageable));
         modelAndView.addObject("categoryList", this.iCategoryService.findAll());
+        if (principal == null){
+            return modelAndView;
+
+        }
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        modelAndView.addObject("role", loginedUser.getAuthorities());
         return modelAndView;
     }
 

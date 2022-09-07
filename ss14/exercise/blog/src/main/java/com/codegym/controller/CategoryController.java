@@ -15,9 +15,9 @@ public class CategoryController {
     @Autowired
     private ICategoryService icategoryService;
 
-    @GetMapping("/showCategory")
+    @GetMapping("/list")
     public ModelAndView showCategory(){
-        ModelAndView modelAndView = new ModelAndView("/category/categoryList");
+        ModelAndView modelAndView = new ModelAndView("category/list");
         modelAndView.addObject("categoryList",this.icategoryService.findAll());
         return modelAndView;
     }
@@ -31,24 +31,24 @@ public class CategoryController {
     @GetMapping("/createCategory")
     public String goAdd(Model model) {
         model.addAttribute("category", new Category());
-        return "/category/createCategory";
+        return "category/create";
     }
 
     @PostMapping("/createCategory")
     public String save(@ModelAttribute Category category) {
         this.icategoryService.save(category);
-        return "redirect:/category/showCategory";
+        return "redirect:/category/list";
     }
 
     @GetMapping("/updateCategory")
     public String goEdit(@RequestParam int id, Model model) {
         model.addAttribute("category", this.icategoryService.findById(id));
-        return "/category/updateCategory";
+        return "category/update";
     }
 
     @PostMapping("/updateCategory")
     public String saveEdit(@ModelAttribute Category category) {
         this.icategoryService.save(category);
-        return "redirect:/category/showCategory";
+        return "redirect:/category/list";
     }
 }

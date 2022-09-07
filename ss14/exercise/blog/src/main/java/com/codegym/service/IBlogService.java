@@ -8,7 +8,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public interface IBlogService {
-    Page<Blog> findAll(String name,String category_name,Pageable pageable);
+    Page<Blog> findAll(String name,String categoryName,Pageable pageable);
     Page<Blog> findAll(String name,Pageable pageable);
     Page<Blog> findAll(Pageable pageable);
     List<Blog> findAllByCategory(Integer id);

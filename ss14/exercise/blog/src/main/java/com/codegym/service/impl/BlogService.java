@@ -17,8 +17,8 @@ public class BlogService implements IBlogService {
     private IBlogRepository iBlogRepository;
 
     @Override
-    public Page<Blog> findAll(String name,String category_name,Pageable pageable) {
-        return iBlogRepository.findAllByNameContainingAndCategoryName(name,category_name,pageable);
+    public Page<Blog> findAll(String name,String categoryName,Pageable pageable) {
+        return iBlogRepository.findAllByNameContainingAndCategoryName(name,categoryName,pageable);
     }
 
     @Override
