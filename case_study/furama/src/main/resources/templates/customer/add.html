@@ -14,7 +14,7 @@
         <nav class="col-lg-8 d-flex justify-content-center">
             <form class="justify-content-center d-flex" action="/customer/add" method="post"
                   style="border: 1px solid #A9A9A9; border-radius: 20px; width: 100%"
-                    th:object="${customer}">
+                    th:object="${customerDto}">
                 <fieldset>
                     <legend>Add Customer</legend>
                     <table style="width: 100%" class="table">
@@ -25,10 +25,11 @@
                             </th>
                             <th scope="col">
                                 <select th:field="*{guestType}" class="table-row" required>
-                                    <option th:each="gusteType:${listGuestType}" th:text="${gusteType.guestTypeName}"
-                                            th:value="${gusteType.idGuestType}"></option>
+                                    <option th:each="type : ${listGuestType}" th:text="${type.name}"
+                                            th:value="${type.id}"></option>
                                 </select>
                             </th>
+                            <h3 class="text-danger" th:errors="*{guestType}"></h3>
                         </tr>
                         <tr>
                             <th scope="col">
@@ -36,7 +37,7 @@
                             </th>
                             <th scope="col">
                                 <input type="text" th:field="*{name}" required>
-<!--                                <p style="color: red">${name}</p>-->
+                                <p class="text-danger" th:errors="*{name}"></p>
                             </th>
                         </tr>
                         <tr>
@@ -45,16 +46,18 @@
                             </th>
                             <th scope="col">
                                 <input type="date" th:field="*{dayOfBirth}">
-<!--                                <p style="color: red">${dayOfBirt}</p>-->
+                                <p class="text-danger" th:errors="*{dayOfBirth}"></p>
                             </th>
-
                         </tr>
                         <tr>
                             <th scope="col">
                                 <label>Giới tính(0 or 1)</label>
                             </th>
                             <th scope="col">
-                                <input type="text" th:field="*{gender}">
+                                <select th:field="*{gender}">
+                                    <option value="1" selected>Nam</option>
+                                    <option value="0">Nữ</option>
+                                </select>
                             </th>
                         </tr>
                         <tr>
@@ -63,7 +66,7 @@
                             </th>
                             <th scope="col">
                                 <input type="text" th:field="*{personalCode}">
-<!--                                <p style="color: red">${idCard}</p>-->
+                                <p class="text-danger" th:errors="*{personalCode}"></p>
                             </th>
                         </tr>
                         <div>
@@ -75,7 +78,7 @@
                             </th>
                             <th scope="col">
                                 <input type="text" th:field="*{phoneNumber}">
-<!--                                <p style="color: red">${phone}</p>-->
+                                <p class="text-danger" th:errors="*{phoneNumber}"></p>
                             </th>
                         </tr>
                         <tr>
@@ -84,7 +87,7 @@
                             </th>
                             <th scope="col">
                                 <input type="text" th:field="*{email}">
-<!--                                <p style="color: red">${email}</p>-->
+                                <p class="text-danger" th:errors="*{email}"></p>
                             </th>
                         </tr>
                         <tr>
@@ -93,11 +96,9 @@
                             </th>
                             <th scope="col">
                                 <input type="text" th:field="*{address}">
+                                <p class="text-danger" th:errors="*{address}"></p>
                             </th>
                         </tr>
-<!--                        <tr>-->
-<!--                            <td colspan="2">${error}</td>-->
-<!--                        </tr>-->
                         <tr>
                             <th></th>
                             <th><input class="btn btn-primary" type="submit" value="SAVE"></th>
