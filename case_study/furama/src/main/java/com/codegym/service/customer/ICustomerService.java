@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface ICustomerService {
     Page<Customer> findAll(String keyWord, Pageable pageable);
+    Page<Customer> findAll( Pageable pageable);
 
     void save(Customer customer);
 

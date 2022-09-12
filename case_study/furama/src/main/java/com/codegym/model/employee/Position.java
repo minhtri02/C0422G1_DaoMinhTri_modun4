@@ -1,4 +1,4 @@
-package com.codegym.model.customer;
+package com.codegym.model.employee;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
@@ -14,14 +14,12 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "guest_type")
-public class GuestType {
+public class Position {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String name;
-
-    @OneToMany(mappedBy = "guestType",cascade = CascadeType.ALL)
+    private Long positionId;
+    private String positionName;
+    @OneToMany(mappedBy = "position", cascade = CascadeType.ALL)
     @JsonBackReference
-    private List<Customer> customerList;
+    private List<Employee> employeeList;
 }

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="~{/include/commom::cssbackground}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{/include/commom::header}"></th:block>
+<th:block th:replace="~{/include/commom::navbar}"></th:block>
+<div class="container-fluid">
+    <input id="message" hidden th:value="${msg}">
+    <button  type="button" class="btn btn-success mt-1" data-bs-toggle="modal"
+            data-bs-target="#addContact" onclick="">
+        THÊM MỚI HỢP ĐỒNG
+    </button>
+    <h2 CLASS="text-center cac" style="font-family: 'Bell MT'">DANH SÁCH HỢP ĐỒNG</h2>
+    <form class="d-flex m-5">
+        <input class="form-control me-2" type="search" placeholder="tìm theo tên dịch vụ" aria-label="Search"
+               name="facilityName">
+        <input class="form-control me-2" type="search" placeholder="tìm theo tên khách hàng" aria-label="Search"
+               name="customerName">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+    <div class="row main mt-2 ">
+        <table class="table table-striped">
+            <tr style="font-family: 'Bell MT'" class="table-success">
+                <th>#</th>
+                <th>DỊCH VỤ</th>
+                <th>KHÁCH HÀNG</th>
+                <th>NGÀY BẮT ĐẦU</th>
+                <th>NGÀY KẾT THÚC</th>
+                <th>TIỀN ĐẶT CỌC</th>
+                <th>TỔNG TIỀN</th>
+                <th class="text-center">DỊCH VỤ ĐI KÈM</th>
+            </tr>
+            <tr th:each="contract, status: ${contractPage}">
+                <td th:text="${status.count}"></td>
+                <td th:text="${contract.facility.nameFacility}"></td>
+                <td th:text="${contract.customer.name}"></td>
+                <td th:text="${contract.startDay}"></td>
+                <td th:text="${contract.endDay}"></td>
+                <td th:text="${contract.deposit}"></td>
+                <th:block th:each="t:${total}">
+                    <th:block th:if="${t.getKey() == contract.id}">
+                        <td th:text="${t.getValue() + contract.deposit + contract.facility.cost}"></td>
+                    </th:block>
+                </th:block>
+
+                <td class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal"
+                            data-bs-target="#addContactDetail" th:onclick="|createContractDetail(${contract.id})|">
+                        +
+                    </button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#attachFacility" th:onclick="|sendId(${contract.id})|">
+                        Danh sách dịch vụ đi kèm
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <a  th:href="@{/contract/list(page=${contractPage.number - 1})}"
+                   th:if="${contractPage.hasPrevious()}">
+                    previous
+                </a>
+                <span th:text="${contractPage.number + 1}"></span> / <span th:text="${contractPage.totalPages}"></span>
+                <a th:href="@{/contract/list(page=${contractPage.number + 1})}"
+                   th:if="${contractPage.hasNext()}">
+                    Next
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+
+<div class="modal fade" id="attachFacility" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEditLable">DANH SÁCH DỊCH VỤ MIỄN PHÍ ĐI KÈM</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr style="font-family: 'Bell MT'">
+                            <th>Tên dịch vụ đi kèm</th>
+                            <th>Đơn vị</th>
+                            <th>Giá tiền</th>
+                            <th>Số lượng</th>
+                        </tr>
+                        </thead>
+                        <tbody id="divContract"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addContactDetail" tabindex="-1" aria-labelledby="modalEditLable" aria-hidden="true">
+    <form action="/contract/createContractDetail" method="post" th:object="${contractDetailDto}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">THÊM DỊCH VỤ ĐI KÈM</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body container-fluid">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Tên dịch vụ đi kèm</th>
+                            <th>Đơn vị</th>
+                            <th>Giá tiền</th>
+                        </tr>
+
+                        <tr>
+                            <td colspan="4"><input id="contractId" type="text" th:field="*{contract}"></td>
+                        </tr>
+                        <th:block th:each="attach: ${attachFacility}">
+                            <tr>
+                                <td>
+                                    <input type="radio" name="attach"
+                                           th:value="${attach.id}"
+                                           th:text="${attach.name}"
+                                           th:field="*{attachFacility}">
+                                </td>
+                                <td th:text="${attach.unit}"></td>
+                                <td th:text="${attach.cost}"></td>
+                            </tr>
+                        </th:block>
+                        <tr>
+                            <td><label>Số lượng</label><input type="number" th:field="*{quantity}"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+                    <button type="submit" class="btn btn-primary">Thêm</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+</div>
+<th:block th:replace="~{/include/commom::footer}"></th:block>
+</body>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/jquery/jquery-3.5.1.min.js"></script>
+<script>
+    function displayAttachFacility() {
+        document.getElementById("tableFacilityContract").style.display = 'block'
+        document.getElementById("buttonHide").style.display = 'block'
+    }
+
+    function hideAttachFacility() {
+        document.getElementById("tableFacilityContract").style.display = 'none'
+        document.getElementById("buttonHide").style.display = 'none'
+    }
+
+    function createContractDetail(id) {
+        document.getElementById("contractId").value = id;
+    }
+</script>
+
+<script>
+    function sendId(id) {
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/contractRest/list/" + id,
+                success: function (listContractDt) {
+                    console.log(listContractDt)
+                    let strContract = "";
+                    if (listContractDt == null){
+                        strContract+="You don't have the included service";
+                    }else {
+                        for (let i = 0; i < listContractDt.length; i++) {
+                            strContract += `<tr>
+                                     <td>${listContractDt[i].attachFacility.name}</td>
+                                     <td>${listContractDt[i].attachFacility.unit}</td>
+                                     <td>${listContractDt[i].attachFacility.cost}</td>
+                                     <td>${listContractDt[i].quantity}</td>
+                                </tr>`;
+                        }
+                    }
+                    $("#divContract").html(strContract);
+                },
+                error: function (resultError) {
+                    alert('error');
+                }
+            });
+        });
+    }
+</script>
+
+</html>

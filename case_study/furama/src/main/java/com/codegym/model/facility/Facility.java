@@ -1,11 +1,14 @@
 package com.codegym.model.facility;
 
+import com.codegym.model.contract.Contract;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -35,4 +38,9 @@ public class Facility {
     @ManyToOne
     @JoinColumn(name = "facility_type_id",referencedColumnName = "id")
     private FacilityType facilityTypeId;
+
+    @OneToMany(mappedBy = "facility")
+    @JsonBackReference
+    private List<Contract> contractList;
+
 }

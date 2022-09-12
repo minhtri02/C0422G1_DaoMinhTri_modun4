@@ -1,5 +1,6 @@
 package com.codegym.model.facility;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,5 +23,6 @@ public class RentType {
     private String name;
 
     @OneToMany(mappedBy = "rentTypeId")
+    @JsonBackReference
     private List<Facility> facilityList;
 }

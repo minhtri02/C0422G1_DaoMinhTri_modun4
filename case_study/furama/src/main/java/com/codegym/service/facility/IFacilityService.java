@@ -11,6 +11,8 @@ import java.util.List;
 public interface IFacilityService {
     Page<Facility> listFacility(String name, Pageable pageable);
 
+    List<Facility> findAll();
+
     List<FacilityType> listFacilityType();
 
     List<RentType> listRentType();
