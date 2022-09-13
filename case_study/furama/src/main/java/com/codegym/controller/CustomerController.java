@@ -48,6 +48,7 @@ public class CustomerController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("customerDto", customerDto);
+            model.addAttribute("listGuestType",this.iGuestTypeCustomerService.findAll());
             return "/customer/add";
         }
 
@@ -72,7 +73,7 @@ public class CustomerController {
     }
 
     @PostMapping("/delete")
-    public String editCustomer(@RequestParam Integer id){
+    public String editCustomer(Integer id){
         this.iCustomerService.delete(id);
         return "redirect:/customer/";
     }

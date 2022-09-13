@@ -69,7 +69,7 @@
     </div>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form action="/facility/delete" method="get">
+        <form action="/facility/delete" method="post">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -80,9 +80,8 @@
                         <input type="text" readonly class="form-control border-0" id="deleteId" name="id">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn border-0" data-bs-dismiss="modal"><i
-                                class="fa fa-rotate-left text-success"></i></button>
-                        <button type="submit" class="btn border-0"><i class="fa fa-trash text-danger"></i></button>
+                        <button type="button" class="btn border-0" data-bs-dismiss="modal">cancel</button>
+                        <button type="submit" class="btn border-0">delete</button>
                     </div>
                 </div>
             </div>

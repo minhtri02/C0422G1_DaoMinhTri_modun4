@@ -68,8 +68,16 @@ public class FacilityController {
     }
 
     @PostMapping("/edit")
-    public String edit(@ModelAttribute Facility facility){
+    public String edit(@ModelAttribute Facility facility,RedirectAttributes redirectAttributes){
         this.iFacilityService.saveFacility(facility);
+        redirectAttributes.addFlashAttribute("smg","edit success!");
+        return "redirect:/facility/";
+    }
+
+    @PostMapping("/delete")
+    public String deleteFacility(@RequestParam("id") Integer id,RedirectAttributes redirectAttributes){
+        this.iFacilityService.deleteFacility(id);
+        redirectAttributes.addFlashAttribute("smg","delete success!");
         return "redirect:/facility/";
     }
 }

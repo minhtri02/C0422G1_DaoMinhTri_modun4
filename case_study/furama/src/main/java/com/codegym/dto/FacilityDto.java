@@ -23,7 +23,7 @@ public class FacilityDto implements Validator {
 
     private Integer id;
     @NotBlank(message = "Please enter")
-    @Pattern(regexp = "^([A-Z][a-z]+//s?){1,4}$",message = "Enter the wrong format!")
+    @Pattern(regexp = "^([A-Z][a-z]+\\s?){1,4}$",message = "Enter the wrong format!")
     String nameFacility;
     @Min(0)
     Integer area;

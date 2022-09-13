@@ -35,7 +35,7 @@ public class Contract {
     @ManyToOne
     @JoinColumn(name = "facility_id", referencedColumnName = "id")
     private Facility facility;
-    @OneToMany(mappedBy = "contract")
+    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<ContractDetail> contractDetail;
 

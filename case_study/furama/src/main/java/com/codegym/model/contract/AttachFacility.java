@@ -23,7 +23,7 @@ public class AttachFacility {
     private double cost;
     private String unit;
     private String status;
-    @OneToMany(mappedBy = "attachFacility")
+    @OneToMany(mappedBy = "attachFacility", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<ContractDetail> contractDetails;
 
