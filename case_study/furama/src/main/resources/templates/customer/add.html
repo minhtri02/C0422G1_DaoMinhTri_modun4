@@ -24,7 +24,7 @@
                                 <label>Chọn loại khách</label>
                             </th>
                             <th scope="col">
-                                <select th:field="*{guestType}" class="table-row" required>
+                                <select th:field="*{guestType}" class="table-row" >
                                     <option th:each="type : ${listGuestType}" th:text="${type.name}"
                                             th:value="${type.id}"></option>
                                 </select>
@@ -36,7 +36,7 @@
                                 <label>Tên khách hàng</label>
                             </th>
                             <th scope="col">
-                                <input type="text" th:field="*{name}" required>
+                                <input type="text" th:field="*{name}" >
                                 <p class="text-danger" th:errors="*{name}"></p>
                             </th>
                         </tr>

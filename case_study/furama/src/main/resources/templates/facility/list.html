@@ -11,7 +11,7 @@
 
 <div class="container">
     <h1 class="text-center">Page Service</h1>
-    <p class="text-center text-success" th:text="${msg}"></p>
+    <p class="text-center text-success" th:if="${msg}"><span th:text="${msg}"></span></p>
     <a class="btn btn-success" href="/facility/add"><span class="">add Facility</span></a>
     <form class="d-flex m-5">
         <input class="form-control me-2" type="search" placeholder="Search facility name" aria-label="Search"
@@ -20,22 +20,22 @@
     </form>
     <table class="table">
         <tr class="table-dark">
-            <th>#</th>
-            <th>Service name</th>
-            <th>Usable area</th>
-            <th>Cost</th>
-            <th>Max People</th>
-            <th>rental type</th>
-            <th>action</th>
+            <th class="text-center">#</th>
+            <th class="text-center">Service name</th>
+            <th class="text-center">Usable area</th>
+            <th class="text-center">Cost</th>
+            <th class="text-center">Max People</th>
+            <th class="text-center">rental type</th>
+            <th class="text-center">action</th>
         </tr>
         <tr th:each="facility, status: ${facilityPage}">
-            <td th:text="${status.count}"></td>
-            <td th:text="${facility.nameFacility}"></td>
-            <td th:text="${facility.area}"></td>
-            <td th:text="${facility.cost}"></td>
-            <td th:text="${facility.maxPeople}"></td>
-            <td th:text="${facility.rentTypeId.name}"></td>
-            <td>
+            <td class="text-center" th:text="${status.count}"></td>
+            <td class="text-center" th:text="${facility.nameFacility}"></td>
+            <td class="text-center" th:text="${facility.area}"></td>
+            <td class="text-center" th:text="${facility.cost}"></td>
+            <td class="text-center" th:text="${facility.maxPeople}"></td>
+            <td class="text-center" th:text="${facility.rentTypeId.name}"></td>
+            <td class="text-center">
                 <button type="button" class="btn">
                     <a th:href="@{/facility/edit/{id}(id=${facility.id})}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"

@@ -10,6 +10,9 @@ import java.util.List;
 
 public interface IContractService {
 
+    Page<Contract> listContract(String nameFacility, String nameCustomer, Pageable pageable);
+
+
     Page<Contract> listContract(Pageable pageable);
 
     List<Contract> findAll();
