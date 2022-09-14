@@ -2,23 +2,22 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>List Contract</title>
     <th:block th:replace="~{/include/commom::cssbackground}"></th:block>
 </head>
 <body>
 <th:block th:replace="~{/include/commom::header}"></th:block>
 <th:block th:replace="~{/include/commom::navbar}"></th:block>
 <div class="container-fluid">
-    <input id="message" hidden th:value="${msg}">
-    <button  type="button" class="btn btn-success mt-1" data-bs-toggle="modal"
-            data-bs-target="#addContact">
-        THÊM MỚI HỢP ĐỒNG
+    <button  type="button" class="btn btn-info" >
+        <a class="text-decoration-none text-light" href="/contract/add">Create Contract</a>
     </button>
-    <h2 CLASS="text-center cac" style="font-family: 'Bell MT'">DANH SÁCH HỢP ĐỒNG</h2>
+    <h2 CLASS="text-center cac" style="font-family: 'Bell MT'">LIST CONTRACT</h2>
+    <p class="text-info" th:if="${msg}"><span th:text="${msg}"></span></p>
     <form class="d-flex m-5">
-        <input class="form-control me-2" type="search" placeholder="tìm theo tên dịch vụ" aria-label="Search"
+        <input class="form-control me-2" type="search" placeholder="search by service name" aria-label="Search"
                name="facilityName">
-        <input class="form-control me-2" type="search" placeholder="tìm theo tên khách hàng" aria-label="Search"
+        <input class="form-control me-2" type="search" placeholder="search by customer name" aria-label="Search"
                name="customerName">
         <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
@@ -26,13 +25,13 @@
         <table class="table table-striped">
             <tr style="font-family: 'Bell MT'" class="table-success">
                 <th>#</th>
-                <th>DỊCH VỤ</th>
-                <th>KHÁCH HÀNG</th>
-                <th>NGÀY BẮT ĐẦU</th>
-                <th>NGÀY KẾT THÚC</th>
-                <th>TIỀN ĐẶT CỌC</th>
-                <th>TỔNG TIỀN</th>
-                <th class="text-center">DỊCH VỤ ĐI KÈM</th>
+                <th>SERVICE</th>
+                <th>CUSTOMER</th>
+                <th>START DAY</th>
+                <th>END DAY</th>
+                <th>DEPOSITS</th>
+                <th>TOTAL CASH</th>
+                <th class="text-center">ACCOMPANIED SERVICE</th>
             </tr>
             <tr th:each="contract, status: ${contractPage}">
                 <td th:text="${status.count}"></td>
@@ -55,7 +54,7 @@
                     </button>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#attachFacility" th:onclick="|sendId(${contract.id})|">
-                        Danh sách dịch vụ đi kèm
+                        LIST OF USING SERVICES
                     </button>
                 </td>
             </tr>
@@ -82,18 +81,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalEditLable">DANH SÁCH DỊCH VỤ MIỄN PHÍ ĐI KÈM</h5>
+                <h5 class="modal-title" id="modalEditLable">LIST OF FREE SERVICES WITH US</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body container-fluid">
                 <div>
                     <table class="table table-striped">
                         <thead>
-                        <tr style="font-family: 'Bell MT'">
-                            <th>Tên dịch vụ đi kèm</th>
-                            <th>Đơn vị</th>
-                            <th>Giá tiền</th>
-                            <th>Số lượng</th>
+                        <tr style="font-family: 'Bell MT'" class="table-dark">
+                            <th>Name of service included</th>
+                            <th>Unit</th>
+                            <th>Price</th>
+                            <th>Amount</th>
                         </tr>
                         </thead>
                         <tbody id="divContract"></tbody>
@@ -109,15 +108,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">THÊM DỊCH VỤ ĐI KÈM</h5>
+                    <h5 class="modal-title">MORE SERVICES WITH US</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body container-fluid">
                     <table class="table table-striped">
-                        <tr>
-                            <th>Tên dịch vụ đi kèm</th>
-                            <th>Đơn vị</th>
-                            <th>Giá tiền</th>
+                        <tr class="table-dark">
+                            <th>Name of service included</th>
+                            <th>Util</th>
+                            <th>Price</th>
                         </tr>
 
                         <tr>
@@ -136,13 +135,13 @@
                             </tr>
                         </th:block>
                         <tr>
-                            <td><label>Số lượng</label><input type="number" th:field="*{quantity}"></td>
+                            <td><label>Amount</label><input type="number" th:field="*{quantity}"></td>
                         </tr>
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
-                    <button type="submit" class="btn btn-primary">Thêm</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
                 </div>
             </div>
         </div>

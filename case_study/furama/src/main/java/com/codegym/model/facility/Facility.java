@@ -39,7 +39,7 @@ public class Facility {
     @JoinColumn(name = "facility_type_id",referencedColumnName = "id")
     private FacilityType facilityTypeId;
 
-    @OneToMany(mappedBy = "facility")
+    @OneToMany(mappedBy = "facility",cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Contract> contractList;
 

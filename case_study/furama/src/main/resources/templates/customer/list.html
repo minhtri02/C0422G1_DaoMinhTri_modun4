@@ -13,6 +13,7 @@
     <div class="row d-flex justify-content-center pt-4">
         <h1 class="text-center">List Customer</h1>
         <div class="text-end"><a class="btn btn-success" href="/customer/add">add customer</a></div>
+        <p class="text-info" th:if="${msg}"><span th:text="${msg}"></span></p>
         <form class="d-flex m-5">
             <input class="form-control me-2" type="search" placeholder="Search customer name" aria-label="Search"
                    name="name">
@@ -22,7 +23,6 @@
               style="  width: 100%">
             <fieldset>
 
-                <p class="text-success" th:if="${msg}" th:text="${msg}"></p>
                 <table id="tableCustomer" class="table table-striped table-bordered">
                     <thead>
                     <tr>

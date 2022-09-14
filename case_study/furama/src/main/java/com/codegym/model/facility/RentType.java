@@ -22,7 +22,7 @@ public class RentType {
     private Integer id;
     private String name;
 
-    @OneToMany(mappedBy = "rentTypeId")
+    @OneToMany(mappedBy = "rentTypeId",cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Facility> facilityList;
 }

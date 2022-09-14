@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Contract</title>
+    <th:block th:replace="~{/include/commom::cssbackground}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{/include/commom::header}"></th:block>
+<th:block th:replace="~{/include/commom::navbar}"></th:block>
+
+<div class="container">
+    <div class="container  mt-2 p-2 mb-2" style="border: 1px solid grey; border-radius: 15px">
+        <form class="row" action="/contract/createContract" method="post" th:object="${contractDto}">
+            <div class="col-md-12">
+                <label for="startday" class="form-label">Ngày bắt đầu </label>
+                <input type="date" class="form-control" id="startday" th:field="*{startDay}">
+            </div>
+            <div class="col-md-12">
+                <label for="endday" class="form-label">Ngày kết thúc </label>
+                <input type="date" class="form-control" id="endday" th:field="*{endDay}">
+            </div>
+
+            <div class="col-md-12">
+                <label for="deposit" class="form-label">Tiền đặt cọc</label>
+                <input type="number" class="form-control" id="deposit" th:field="*{deposit}">
+            </div>
+
+            <div class="col-md-12">
+                <label class="form-label">Khách hàng</label>
+                <select th:field="*{customer.idCustomer}" class="form-select">
+                    <option value="None">Chọn khách hàng</option>
+                    <option th:each="cus:${customer}"
+                            th:value="${cus.idCustomer}"
+                            th:text="${cus.name}">
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Nhân viên</label>
+                <select th:field="*{employee.id}" class="form-select">
+                    <option value="None">Chọn nhân viên</option>
+                    <option th:each="emp:${employee}"
+                            th:value="${emp.id}"
+                            th:text="${emp.name}">
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Dịch vụ</label>
+                <select th:field="*{facility.id}" class="form-select">
+                    <option value="None">Chọn dịch vụ</option>
+                    <option th:each="fac:${facility}"
+                            th:value="${fac.id}"
+                            th:text="${fac.nameFacility}"
+                            id="total">
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label for="total" class="form-label">Tổng tiền</label>
+                <input type="text" readonly class="form-control" id="total1" name="total">
+            </div>
+            <div class="col-12  mt-2 d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary me-3" ><a href="/contract/list" class="text-decoration-none">Huỷ Bỏ</a></button>
+                <button type="submit" class="btn btn-warning">Tạo hợp đồng</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<th:block th:replace="~{/include/commom::footer}"></th:block>
+</body>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/jquery/jquery-3.5.1.min.js"></script>
+</html>
