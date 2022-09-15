@@ -13,23 +13,23 @@
     <div class="container  mt-2 p-2 mb-2" style="border: 1px solid grey; border-radius: 15px">
         <form class="row" action="/contract/createContract" method="post" th:object="${contractDto}">
             <div class="col-md-12">
-                <label for="startday" class="form-label">Ngày bắt đầu </label>
+                <label for="startday" class="form-label">Start Day</label>
                 <input type="date" class="form-control" id="startday" th:field="*{startDay}">
             </div>
             <div class="col-md-12">
-                <label for="endday" class="form-label">Ngày kết thúc </label>
+                <label for="endday" class="form-label">End Day</label>
                 <input type="date" class="form-control" id="endday" th:field="*{endDay}">
             </div>
 
             <div class="col-md-12">
-                <label for="deposit" class="form-label">Tiền đặt cọc</label>
+                <label for="deposit" class="form-label">Deposits</label>
                 <input type="number" class="form-control" id="deposit" th:field="*{deposit}">
             </div>
 
             <div class="col-md-12">
-                <label class="form-label">Khách hàng</label>
+                <label class="form-label">Customer</label>
                 <select th:field="*{customer.idCustomer}" class="form-select">
-                    <option value="None">Chọn khách hàng</option>
+                    <option value="None">Choose Customer</option>
                     <option th:each="cus:${customer}"
                             th:value="${cus.idCustomer}"
                             th:text="${cus.name}">
@@ -37,9 +37,9 @@
                 </select>
             </div>
             <div class="col-md-12">
-                <label class="form-label">Nhân viên</label>
+                <label class="form-label">Employee</label>
                 <select th:field="*{employee.id}" class="form-select">
-                    <option value="None">Chọn nhân viên</option>
+                    <option value="None">Choose Employee</option>
                     <option th:each="emp:${employee}"
                             th:value="${emp.id}"
                             th:text="${emp.name}">
@@ -47,9 +47,9 @@
                 </select>
             </div>
             <div class="col-md-12">
-                <label class="form-label">Dịch vụ</label>
+                <label class="form-label">Service</label>
                 <select th:field="*{facility.id}" class="form-select">
-                    <option value="None">Chọn dịch vụ</option>
+                    <option value="None">Choose Service</option>
                     <option th:each="fac:${facility}"
                             th:value="${fac.id}"
                             th:text="${fac.nameFacility}"
@@ -58,12 +58,12 @@
                 </select>
             </div>
             <div class="col-md-12">
-                <label for="total" class="form-label">Tổng tiền</label>
+                <label for="total" class="form-label">Total money</label>
                 <input type="text" readonly class="form-control" id="total1" name="total">
             </div>
             <div class="col-12  mt-2 d-flex justify-content-end">
                 <button type="button" class="btn btn-secondary me-3" ><a href="/contract/list" class="text-decoration-none">Huỷ Bỏ</a></button>
-                <button type="submit" class="btn btn-warning">Tạo hợp đồng</button>
+                <button type="submit" class="btn btn-warning">Create contract</button>
             </div>
         </form>
     </div>

@@ -33,6 +33,7 @@ public class FacilityDto implements Validator {
     Integer maxPeople;
     @NotBlank
     String standardRoom;
+    @NotBlank
     String descriptionOtherConvenience;
     @Min(0)
     Double poolArea;

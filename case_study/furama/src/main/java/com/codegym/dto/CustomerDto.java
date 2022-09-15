@@ -28,9 +28,10 @@ public class CustomerDto implements Validator {
     private LocalDate dayOfBirth;
     private String gender;
     @NotBlank(message = "please enter your personalCode")
+    @Pattern(regexp = "^([0-9]{9})|([0-9]{12})$", message = "your number idcard is wrong!")
     private String personalCode;
     @NotBlank(message = "please enter your phone")
-    @Pattern(regexp = "^(84|0[35789])+([0-9]{8})$", message = "your phone number is wrong!")
+    @Pattern(regexp = "^(\\+84(9[01])|(09[10]))[0-9]{7}$", message = "your phone number is wrong!")
     private String phoneNumber;
     @NotBlank(message = "Email is mandatory")
     @Email
